@@ -5,4 +5,5 @@ const Post = {
 		db.comments.filter(comment => comment.post === parent.id),
 };
 
-export default Post;
+// export default Post;
+module.exports = Post;

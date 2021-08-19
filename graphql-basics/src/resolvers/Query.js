@@ -39,4 +39,5 @@ const Query = {
 	comments: (parents, args, { db }, info) => db.comments,
 };
 
-export default Query;
+// export default Query;
+module.exports = Query;

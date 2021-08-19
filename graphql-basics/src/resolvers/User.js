@@ -5,4 +5,5 @@ const User = {
 		db.comments.filter(comment => comment.author === parent.id),
 };
 
-export default User;
+// export default User;
+module.exports = User;

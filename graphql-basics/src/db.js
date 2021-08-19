@@ -71,4 +71,5 @@ const posts = [
 
 const db = { users, posts, comments };
 
-export default db;
+// export default db;
+module.exports = db;

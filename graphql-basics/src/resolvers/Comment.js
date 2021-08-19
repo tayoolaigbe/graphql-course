@@ -5,4 +5,5 @@ const Comment = {
 		db.posts.find(post => post.id === parent.post),
 };
 
-export default Comment;
+// export default Comment;
+module.exports = Comment;
