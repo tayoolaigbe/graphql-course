@@ -1,18 +1,24 @@
 const { v4: uuidv4 } = require('uuid');
 
 const Mutation = {
-	createUser: (parent, args, { db }, info) => {
-		const emailTaken = db.users.some(user => user.email === args.data.email);
-		if (emailTaken) throw new Error('Email already taken!');
+	createUser: async (parent, args, { prisma }, info) => {
+		// const emailTaken = prisma.user.some(user => user.email === args.data.email);
+		// if (emailTaken) throw new Error('Email already taken!');
 
-		const user = {
+		const newUser = {
 			id: uuidv4(),
 			...args.data,
 		};
 
-		db.users.push(user);
+		// prisma.user.push(user);
 
-		return user;
+		const createdUser = await prisma.user.create({
+			data: {
+				...newUser,
+			},
+		});
+
+		return createdUser;
 	},
 	deleteUser: (parent, args, { db }, info) => {
 		const userIndex = db.users.findIndex(user => user.id === args.id);

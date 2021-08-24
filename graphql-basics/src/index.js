@@ -1,5 +1,5 @@
 const { ApolloServer } = require('apollo-server');
-
+const { PrismaClient } = require('@prisma/client');
 const fs = require('fs');
 const path = require('path');
 const db = require('./db');
@@ -8,6 +8,8 @@ const Mutation = require('./resolvers/Mutation');
 const Post = require('./resolvers/Post');
 const Comment = require('./resolvers/Comment');
 const User = require('./resolvers/User');
+
+const prisma = new PrismaClient();
 
 const resolvers = {
 	Query,
@@ -21,7 +23,7 @@ const server = new ApolloServer({
 	typeDefs: fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8'),
 	resolvers,
 	context: {
-		db,
+		prisma,
 	},
 });
 
