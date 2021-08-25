@@ -7,11 +7,13 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialActions"]
 }
 
 model User {
   id        String    @id @unique @default(cuid())
+  // @@map("users")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   name      String    @db.VarChar(255)
@@ -27,7 +29,7 @@ model Post {
   title     String
   body      String
   published Boolean
-  author    User      @relation(fields: [userId], references: [id])
+  author    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   comments  Comment[]
 }
@@ -37,7 +39,7 @@ model Comment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   text      String
-  author    User     @relation(fields: [userId], references: [id])
+  author    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   post      Post     @relation(fields: [postId], references: [id])
   userId    String
   postId    String
